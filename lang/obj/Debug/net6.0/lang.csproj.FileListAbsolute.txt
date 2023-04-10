@@ -1,0 +1,15 @@
+C:\Users\hatru\Desktop\Diploma Z\LANG\lang\bin\Debug\net6.0\lang.exe
+C:\Users\hatru\Desktop\Diploma Z\LANG\lang\bin\Debug\net6.0\lang.deps.json
+C:\Users\hatru\Desktop\Diploma Z\LANG\lang\bin\Debug\net6.0\lang.runtimeconfig.json
+C:\Users\hatru\Desktop\Diploma Z\LANG\lang\bin\Debug\net6.0\lang.dll
+C:\Users\hatru\Desktop\Diploma Z\LANG\lang\bin\Debug\net6.0\lang.pdb
+C:\Users\hatru\Desktop\Diploma Z\LANG\lang\obj\Debug\net6.0\lang.csproj.AssemblyReference.cache
+C:\Users\hatru\Desktop\Diploma Z\LANG\lang\obj\Debug\net6.0\lang.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\hatru\Desktop\Diploma Z\LANG\lang\obj\Debug\net6.0\lang.AssemblyInfoInputs.cache
+C:\Users\hatru\Desktop\Diploma Z\LANG\lang\obj\Debug\net6.0\lang.AssemblyInfo.cs
+C:\Users\hatru\Desktop\Diploma Z\LANG\lang\obj\Debug\net6.0\lang.csproj.CoreCompileInputs.cache
+C:\Users\hatru\Desktop\Diploma Z\LANG\lang\obj\Debug\net6.0\lang.dll
+C:\Users\hatru\Desktop\Diploma Z\LANG\lang\obj\Debug\net6.0\refint\lang.dll
+C:\Users\hatru\Desktop\Diploma Z\LANG\lang\obj\Debug\net6.0\lang.pdb
+C:\Users\hatru\Desktop\Diploma Z\LANG\lang\obj\Debug\net6.0\lang.genruntimeconfig.cache
+C:\Users\hatru\Desktop\Diploma Z\LANG\lang\obj\Debug\net6.0\ref\lang.dll
