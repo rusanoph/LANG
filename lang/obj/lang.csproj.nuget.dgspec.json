@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\hatru\\Desktop\\Diploma Z\\LANG\\lang\\lang.csproj": {}
+    "C:\\Users\\hatru\\Desktop\\Diploma Z\\LANG\\Lang\\lang.csproj": {}
   },
   "projects": {
-    "C:\\Users\\hatru\\Desktop\\Diploma Z\\LANG\\lang\\lang.csproj": {
+    "C:\\Users\\hatru\\Desktop\\Diploma Z\\LANG\\Lang\\lang.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\hatru\\Desktop\\Diploma Z\\LANG\\lang\\lang.csproj",
+        "projectUniqueName": "C:\\Users\\hatru\\Desktop\\Diploma Z\\LANG\\Lang\\lang.csproj",
         "projectName": "lang",
-        "projectPath": "C:\\Users\\hatru\\Desktop\\Diploma Z\\LANG\\lang\\lang.csproj",
+        "projectPath": "C:\\Users\\hatru\\Desktop\\Diploma Z\\LANG\\Lang\\lang.csproj",
         "packagesPath": "C:\\Users\\hatru\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\hatru\\Desktop\\Diploma Z\\LANG\\lang\\obj\\",
+        "outputPath": "C:\\Users\\hatru\\Desktop\\Diploma Z\\LANG\\Lang\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\hatru\\AppData\\Roaming\\NuGet\\NuGet.Config",
