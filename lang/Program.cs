@@ -3,18 +3,19 @@ using Lang.CodeAnalysis;
 
 namespace Lang 
 {
-    class Program 
+    internal static class Program 
     {
-        static void Main(string[] args) 
+        private static void Main(string[] args) 
         {
-            bool showTree = false;
+            var showTree = false;
+            var showTokens = false;
 
             while (true)
             {
                 Console.Write("> ");
                 var line = Console.ReadLine();
 
-                // End if input is empty of whitespaced
+                // End if input is empty or whitespaced
                 if (string.IsNullOrWhiteSpace(line))
                     return;
 
@@ -24,6 +25,13 @@ namespace Lang
                     // Enable showing parse trees
                     showTree = !showTree;
                     Console.WriteLine(showTree ? "Showing parse trees." : "Not showing parse trees");
+                    continue;
+                }
+                else if (line == "#showTokens")
+                {
+                    // Enable lexical analysis. Showing tokens
+                    showTokens = !showTokens;
+                    Console.WriteLine(showTokens ? "Showing tokens." : "Not showing tokens.");
                     continue;
                 }
                 else if (line == "#cls")
@@ -42,32 +50,37 @@ namespace Lang
                 // PARSER part
                 var syntaxTree = SyntaxTree.Parse(line);
 
-                // Print parse tree
+                // Print parse tree if enabled
                 if (showTree)
                 {
-                    var color = Console.ForegroundColor;
                     Console.ForegroundColor = ConsoleColor.DarkGray;
                     PrettyPrint(syntaxTree.Root);
-                    Console.ForegroundColor = color;
+                    Console.ResetColor();
                 }
 
+                if (showTokens)
+                {
+                    Console.ForegroundColor = ConsoleColor.DarkYellow;
+                    TokensPrint(line);
+                    Console.ResetColor();
+                }
+                
+                // Evalution of expression
                 if (!syntaxTree.Diagnostics.Any())
                 {
-                    // Evalution of expression
                     var e = new Evaluator(syntaxTree.Root);
                     var result = e.Evaluate();
                     Console.WriteLine(result);
                 }
+                // Error processing
                 else
                 {
-                    // Error processing
-                    var color = Console.ForegroundColor;
                     Console.ForegroundColor = ConsoleColor.DarkRed;
 
                     foreach (var diagnostic in syntaxTree.Diagnostics)
                         Console.WriteLine(diagnostic);
-
-                    Console.ForegroundColor = color;
+                    
+                    Console.ResetColor();
                 }
             }
         }
@@ -97,6 +110,23 @@ namespace Lang
 
             foreach (var child in node.GetChildren())
                 PrettyPrint(child, indent, child == lastChild);
+        }
+        
+        static void TokensPrint(string line)
+        {
+            var lexer = new Lexer(line);
+            while (true)
+            {
+                var token = lexer.NextToken();
+                if (token.Kind == SyntaxKind.EndOfFileToken)
+                    break;
+
+                Console.Write($"{token.Kind}: '{token.Text}'");
+                if (token.Value != null)
+                    Console.Write($" {token.Value}");
+                
+                Console.WriteLine();
+            }
         }
     }
 

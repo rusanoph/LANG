@@ -1,6 +1,6 @@
 namespace Lang.CodeAnalysis
 {
-    class Evaluator
+    public class Evaluator
     {
         private readonly ExpressionSyntax _root;
 
@@ -19,8 +19,8 @@ namespace Lang.CodeAnalysis
             // BinaryExpression
             // NumberExpression
 
-            if (node is NumberExpressionSyntax n)
-                return (int)n.NumberToken.Value;
+            if (node is LiteralExpressionSyntax n)
+                return (int)n.LiteralToken.Value;
 
             if (node is BinaryExpressionSyntax b)
             {
