@@ -50,6 +50,9 @@ namespace Lang
 
                 // PARSER part
                 var syntaxTree = SyntaxTree.Parse(line);
+                var binder = new Binder();
+                var boundExpression = binder.BindExpression(syntaxTree.Root); 
+                var diagnostics = syntaxTree.Diagnostics.Concat(binder.Diagnostics).ToArray();
 
                 // Print parse tree if enabled
                 if (showTree)
@@ -65,11 +68,11 @@ namespace Lang
                     TokensPrint(line);
                     Console.ResetColor();
                 }
-                
+
                 // Evalution of expression
-                if (!syntaxTree.Diagnostics.Any())
+                if (!diagnostics.Any())
                 {
-                    var e = new Evaluator(syntaxTree.Root);
+                    var e = new Evaluator(boundExpression);
                     var result = e.Evaluate();
                     Console.WriteLine(result);
                 }
