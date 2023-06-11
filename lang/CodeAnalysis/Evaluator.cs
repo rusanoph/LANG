@@ -1,3 +1,5 @@
+using Lang.CodeAnalysis.Syntax;
+
 namespace Lang.CodeAnalysis
 {
     public class Evaluator
@@ -6,7 +8,7 @@ namespace Lang.CodeAnalysis
 
         public Evaluator(ExpressionSyntax root)
         {
-            this._root = root;
+            _root = root;
         }
 
         public int Evaluate()

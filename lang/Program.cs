@@ -1,5 +1,6 @@
 ﻿using System;
 using Lang.CodeAnalysis;
+using Lang.CodeAnalysis.Syntax;
 
 namespace Lang 
 {

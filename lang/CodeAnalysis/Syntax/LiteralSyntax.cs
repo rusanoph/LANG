@@ -1,4 +1,4 @@
-namespace Lang.CodeAnalysis
+namespace Lang.CodeAnalysis.Syntax
 {
     public sealed class LiteralExpressionSyntax : ExpressionSyntax
     {
