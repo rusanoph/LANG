@@ -5,6 +5,8 @@ namespace Lang.CodeAnalysis
         Addition,
         Substraction,
         Multiplication,
-        Division
+        Division,
+        LogicalAnd,
+        LogicalOr
     }
 }
