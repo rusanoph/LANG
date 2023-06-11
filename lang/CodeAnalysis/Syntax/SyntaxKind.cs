@@ -14,6 +14,9 @@ namespace Lang.CodeAnalysis.Syntax
         BangToken,
         AmpersandAmpersandToken,
         PipePipeToken,
+        EqualsEqualsToken,
+        BangEqualsToken,
+        
         OpenParenthesisToken,
         CloseParenthesisToken,
         IdentifierToken,
@@ -27,6 +30,5 @@ namespace Lang.CodeAnalysis.Syntax
         UnaryExpression,
         BinaryExpression,
         ParenthesizedExpression,
-        
     }
 }
