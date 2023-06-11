@@ -117,7 +117,7 @@ namespace Lang
             var lexer = new Lexer(line);
             while (true)
             {
-                var token = lexer.NextToken();
+                var token = lexer.Lex();
                 if (token.Kind == SyntaxKind.EndOfFileToken)
                     break;
 
