@@ -1,5 +1,6 @@
 ﻿using System;
 using Lang.CodeAnalysis;
+using Lang.CodeAnalysis.Syntax;
 
 namespace Lang 
 {
@@ -49,6 +50,9 @@ namespace Lang
 
                 // PARSER part
                 var syntaxTree = SyntaxTree.Parse(line);
+                var binder = new Binder();
+                var boundExpression = binder.BindExpression(syntaxTree.Root); 
+                var diagnostics = syntaxTree.Diagnostics.Concat(binder.Diagnostics).ToArray();
 
                 // Print parse tree if enabled
                 if (showTree)
@@ -64,11 +68,11 @@ namespace Lang
                     TokensPrint(line);
                     Console.ResetColor();
                 }
-                
+
                 // Evalution of expression
-                if (!syntaxTree.Diagnostics.Any())
+                if (!diagnostics.Any())
                 {
-                    var e = new Evaluator(syntaxTree.Root);
+                    var e = new Evaluator(boundExpression);
                     var result = e.Evaluate();
                     Console.WriteLine(result);
                 }
@@ -77,7 +81,7 @@ namespace Lang
                 {
                     Console.ForegroundColor = ConsoleColor.DarkRed;
 
-                    foreach (var diagnostic in syntaxTree.Diagnostics)
+                    foreach (var diagnostic in diagnostics)
                         Console.WriteLine(diagnostic);
                     
                     Console.ResetColor();
@@ -117,7 +121,7 @@ namespace Lang
             var lexer = new Lexer(line);
             while (true)
             {
-                var token = lexer.NextToken();
+                var token = lexer.Lex();
                 if (token.Kind == SyntaxKind.EndOfFileToken)
                     break;
 

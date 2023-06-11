@@ -1,4 +1,4 @@
-namespace Lang.CodeAnalysis
+namespace Lang.CodeAnalysis.Syntax
 {
     internal sealed class Parser
     {
@@ -14,7 +14,7 @@ namespace Lang.CodeAnalysis
             SyntaxToken token;
             do
             {
-                token = lexer.NextToken();
+                token = lexer.Lex();
 
                 if (token.Kind != SyntaxKind.WhiteSpaceToken &&
                     token.Kind != SyntaxKind.BadToken)
@@ -64,57 +64,71 @@ namespace Lang.CodeAnalysis
             return new SyntaxTree(_diagnostics, expression, endOfFileToken);
         }
 
-        private ExpressionSyntax ParseExpression()
-        {
-            return ParseTerm();
-        }
 
-        private ExpressionSyntax ParseTerm()
+        private ExpressionSyntax ParseExpression(int parentPrecedence=0) 
         {
-            var left = ParseFactor();
+            ExpressionSyntax left;
+            var unaryOperatorPrecedence = Current.Kind.GetUnaryOperatorPrecedence(); 
 
-            while (Current.Kind == SyntaxKind.PlusToken ||
-                   Current.Kind == SyntaxKind.MinusToken)
+            if (unaryOperatorPrecedence != 0 && unaryOperatorPrecedence >= parentPrecedence)
             {
                 var operatorToken = NextToken();
-                var right = ParseFactor();
+                var operand = ParseExpression(unaryOperatorPrecedence);
+                left = new UnaryExpressionSyntax(operatorToken, operand);
+            }
+            else 
+            {
+                left = ParsePrimaryExpression();
+            }
+
+            while (true)
+            {
+                var precedence = Current.Kind.GetBinaryOperatorPrecedence();
+                if (precedence == 0 || precedence <= parentPrecedence)
+                    break;
+
+                var operatorToken = NextToken();
+                var right = ParseExpression(precedence);
                 left = new BinaryExpressionSyntax(left, operatorToken, right);
 
             }
 
             return left;
         }
-
-        private ExpressionSyntax ParseFactor()
-        {
-            var left = ParsePrimaryExpression();
-
-            while (Current.Kind == SyntaxKind.StarToken ||
-                   Current.Kind == SyntaxKind.SlashToken)
-            {
-                var operatorToken = NextToken();
-                var right = ParsePrimaryExpression();
-                left = new BinaryExpressionSyntax(left, operatorToken, right);
-
-            }
-
-            return left;
-        }
-
+       
         private ExpressionSyntax ParsePrimaryExpression()
         {
-            if (Current.Kind == SyntaxKind.OpenParenthesisToken)
+            switch (Current.Kind)
             {
-                var left = NextToken();
-                var expression = ParseExpression();
-                var right = MatchToken(SyntaxKind.CloseParenthesisToken);
+                case SyntaxKind.OpenParenthesisToken:
+                {
+                    var left = NextToken();
+                    var expression = ParseExpression();
+                    var right = MatchToken(SyntaxKind.CloseParenthesisToken);
 
-                return new ParenthesizedExpressionSyntax(left, expression, right);
+                    return new ParenthesizedExpressionSyntax(left, expression, right);
+                }
+
+                case SyntaxKind.FalseKeyword:
+                case SyntaxKind.TrueKeyword:
+                {
+                    var keywordToken = NextToken();
+                    var value = keywordToken.Kind == SyntaxKind.TrueKeyword;
+                    return new LiteralExpressionSyntax(keywordToken, value);
+                }
+
+                default:
+                {
+                    var numberToken = MatchToken(SyntaxKind.NumberToken);
+                    return new LiteralExpressionSyntax(numberToken);
+                }
+
             }
 
-            var numberToken = MatchToken(SyntaxKind.NumberToken);
-            return new LiteralExpressionSyntax(numberToken);
+            
         }
+    
+       
     }
 
 }
