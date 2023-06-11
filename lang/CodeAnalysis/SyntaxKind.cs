@@ -16,6 +16,7 @@ namespace Lang.CodeAnalysis
 
         // Expressions tokens
         LiteralExpression,
+        UnaryExpression,
         BinaryExpression,
         ParenthesizedExpression
     }
