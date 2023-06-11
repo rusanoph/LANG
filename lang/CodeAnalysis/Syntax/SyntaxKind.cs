@@ -13,11 +13,16 @@ namespace Lang.CodeAnalysis.Syntax
         SlashToken,
         OpenParenthesisToken,
         CloseParenthesisToken,
+        IdentifierToken,
+
+        // Keywords
+        TrueKeyword,
+        FalseKeyword,
 
         // Expressions tokens
         LiteralExpression,
         UnaryExpression,
         BinaryExpression,
-        ParenthesizedExpression
+        ParenthesizedExpression,
     }
 }
